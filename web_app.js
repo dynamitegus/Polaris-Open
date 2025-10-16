@@ -4,6 +4,9 @@ const express = require('express')
 const cookieParser = require('cookie-parser')
 const timeout = require('connect-timeout')
 const cors = require('cors')
+const http = require('http')
+const https = require('https')
+const fs = require('node:fs');
 
 const path = require('path')
 const mongoose = require("mongoose")
@@ -22,6 +25,11 @@ module.exports = (client) => {
 
 const app = express();
 const tools = Tools.global
+
+const options = {
+  key: fs.readFileSync('private-key.pem'),
+  cert: fs.readFileSync('certificate.pem'),
+};
 
 app.use(cookieParser());
 app.use(express.json({ limit: '20mb' }));  // keeping the limit pretty high for json imports, some servers are like 10+ megabytes
@@ -928,6 +936,8 @@ app.use(function (err, req, res, next) {
 process.on('uncaughtException', (e) => { console.warn(e) });
 process.on('unhandledRejection', (e, p) => { console.warn(e) });
 
-app.listen(auth.serverPort, () => console.log(`Web server online at http://localhost:${auth.serverPort} (${+process.uptime().toFixed(2)} secs)`));
+http.createServer(app).listen(auth.serverPort, () => console.log(`Web server online at http://localhost:${auth.serverPort} (${+process.uptime().toFixed(2)} secs)`));
+
+https.createServer(options, app).listen(auth.secureServerPort, () => console.log(`Web server online at https://localhost:${auth.secureServerPort} (${+process.uptime().toFixed(2)} secs)`));
 
 }

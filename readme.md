@@ -10,7 +10,8 @@ It's ""easy!""
 ### Step 0: Node.js
 1. If you don't have node.js, [go get it](https://nodejs.org/en)
 2. Once you've set up node, run `npm i` in the bot's root directory
-	- If you're new around here, and you're on Windows, you can open up the terminal in a specific directory by shift+rightclicking a blank spot in the folder and pressing Open in Terminal/Powershell/cmd/etc. 
+	- If you're new around here, and you're on Windows, you can open up the terminal in a specific directory by shift+rightclicking a blank spot in the folder and pressing Open in Terminal/Powershell/cmd/etc.
+	- hey! Fork maintainer dynamitegus here, I used bun for my small little edits, so `bun install` is the command to run, i dont know if npm still works.
 
 ### Step 1: Setting up the bot
 Fortunately Discord makes this super easy, thanks Discord
@@ -85,6 +86,13 @@ If it's not connecting, try checking:
 3. If you want the bot to be public, set that up in the Discord dev portal. But make sure you can handle it.
 	- The bot should work fine until sharding kicks in (at ~2500 servers), then it might start to break down a little
 	- Really, it comes down to your server specs and the number of members in a server
+
+4. Yo, fork maintainer dynamitegus here. I added HTTPS Support, I barely understand it myself so i wont explain how or where to get these from as I followed a combination of linode and cloudflare guides and looked at expressjs and nodejs docs to implement it. Here are a few notes:
+	- the certificate is expected in the `certificate.pem` file
+	- the private key is expected in the `private-key.pem` file
+		- if you dont like these locations you can edit `web_app.js`, it should be right up the top
+	- default port for https is `8443` and is set in the `config.json` under the `secureServerPort` variable, dont like it? go change it.
+	- it should just work. if it doesnt i probably wont help you, i am yet to put this on my actual server so if it doesnt work there will be another commit.
  
 ---
 

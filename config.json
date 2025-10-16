@@ -7,7 +7,8 @@
   
   "enableWebServer": true,
   "serverPort": 6880,
-  "siteURL": "http://localhost:6880",
+  "secureServerPort": 8443,
+  "siteURL": "https://localhost:8443",
   
   "changelogURL": "",
   "supportURL": ""
